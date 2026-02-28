@@ -314,7 +314,7 @@ elif page == "🥗 Global Kitchen":
             if st.button("🚀 Start Gemini AI Analysis"):
                 with st.spinner("🔍 Gemini is analyzing your dish..."):
                     try:
-                        genai.configure(api_key=api_key)
+                        genai.configure(AIzaSyCOdS9TaqYxNR0i3flG7SrUldTazP6nFXw)
                         
                         # Исправление: Автоматический поиск рабочей модели
                         available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
