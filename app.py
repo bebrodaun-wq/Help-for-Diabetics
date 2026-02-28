@@ -312,18 +312,25 @@ elif page == "🥗 Global Kitchen":
             st.image(image, width=400)
             
             if st.button("🚀 Start Gemini AI Analysis"):
-                with st.spinner("🔍 Gemini is analyzing your dish..."):
+                with st.spinner("🔍 Gemini is analyzing..."):
                     try:
-    genai.configure(api_key=api_key)
-    # Автоматический поиск рабочей модели
-    available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
-    # Используем flash-1.5 или любую доступную
-    model_name = next((m for m in available_models if 'flash' in m), 'models/gemini-1.5-flash')
-    
-    model = genai.GenerativeModel(model_name)
-    # Здесь твой код генерации контента
-except Exception as e:
-    st.error(f"Ошибка при работе с Gemini: {e}")
+                        # ВАЖНО: Весь код внутри try должен иметь отступ (4 пробела)
+                        genai.configure(api_key=api_key)
+                        
+                        # Авто-подбор модели (решает проблему 404)
+                        models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
+                        model_name = next((m for m in models if '1.5-flash' in m), models[0])
+                        
+                        model = genai.GenerativeModel(model_name)
+                        prompt = "Identify this food, estimate carbs (g) and Bread Units (12g carbs = 1 BU). Answer in Russian."
+                        response = model.generate_content([prompt, image])
+                        
+                        st.success("✅ Анализ завершен!")
+                        st.write(response.text)
+                        
+                    except Exception as e:
+                        # Блок except должен быть на том же уровне, что и try
+                        st.error(f"Ошибка: {e}")
                         
                         prompt = """You are a professional diabetic nutritionist. Look at this food image. 
                         1) Identify the dish. 
