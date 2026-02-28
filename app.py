@@ -321,7 +321,7 @@ elif page == "🥗 Global Kitchen":
                         # Выбираем flash если есть, если нет - берем первую доступную
                         model_name = next((m for m in available_models if 'flash' in m), available_models[0])
                         
-                        model = genai.GenerativeModel(model_name)
+                        model = genai.GenerativeModel('models/gemini-1.5-flash')
                         
                         prompt = """You are a professional diabetic nutritionist. Look at this food image. 
                         1) Identify the dish. 
