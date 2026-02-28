@@ -314,14 +314,16 @@ elif page == "🥗 Global Kitchen":
             if st.button("🚀 Start Gemini AI Analysis"):
                 with st.spinner("🔍 Gemini is analyzing your dish..."):
                     try:
-                        genai.configure(AIzaSyCOdS9TaqYxNR0i3flG7SrUldTazP6nFXw)
-                        
-                        # Исправление: Автоматический поиск рабочей модели
-                        available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
-                        # Выбираем flash если есть, если нет - берем первую доступную
-                        model_name = next((m for m in available_models if 'flash' in m), available_models[0])
-                        
-                        model = genai.GenerativeModel('models/gemini-1.5-flash')
+    genai.configure(api_key=api_key)
+    # Автоматический поиск рабочей модели
+    available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
+    # Используем flash-1.5 или любую доступную
+    model_name = next((m for m in available_models if 'flash' in m), 'models/gemini-1.5-flash')
+    
+    model = genai.GenerativeModel(model_name)
+    # Здесь твой код генерации контента
+except Exception as e:
+    st.error(f"Ошибка при работе с Gemini: {e}")
                         
                         prompt = """You are a professional diabetic nutritionist. Look at this food image. 
                         1) Identify the dish. 
