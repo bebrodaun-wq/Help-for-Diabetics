@@ -8,7 +8,18 @@ from PIL import Image
 import time
 import random
 import google.generativeai as genai # Добавлен новый ИИ от Google
+import streamlit as st
+import streamlit.components.v1 as components
 
+<meta name="google-site-verification" content="rLUzssN4eMEMB1GM7kQ4Obtaba8G1pC0CBRFW2d3Eh0" />
+components.html(
+    """
+    <head>
+        <meta name="google-site-verification" content="ТВОЙ_КОД_ЗДЕСЬ" />
+    </head>
+    """,
+    height=0,
+)
 st.set_page_config(page_title="Help For Diabetic People", page_icon="💙", layout="wide")
 
 if 'diabet_logs' not in st.session_state:
